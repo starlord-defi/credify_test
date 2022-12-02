@@ -1,0 +1,100 @@
+.color-green{
+    color: #4caf50;
+}
+
+.color-bright-green{
+    color: #00d395;
+}
+
+.color-cement{
+    color: #62677b;
+    margin-bottom: 0;
+}
+.color-dull{
+    color: #9094a7;
+    margin-bottom: 0;
+}
+.color-white{
+    color: white;
+}
+
+.color-light-cement{
+    color: #bbbdc4;
+}
+.color-little-bold-cement{
+    color: #62677b;
+}
+
+
+.font-size-1rem{
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+.font-size-1rem-bolder{
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.font-size-1_5rem{
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+.font-size-1_5rem-bolder{
+    margin-bottom: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.font-size-2rem{
+    margin-bottom: 0;
+    font-size: 2rem;
+}
+.font-size-2rem-bolder{
+    margin-bottom: 0;
+    font-size: 2rem;
+    font-weight: 600;
+}
+.font-size-3rem{
+    margin-bottom: 0;
+    font-size: 2.5rem;
+    font-weight: 400;
+}
+.font-size-3rem-bolder{
+    margin-bottom: 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+
+a{
+    color: #0059ff;
+}
+
+.gradient1{
+    background: linear-gradient(150deg,#da00d9,#2151fe) !important;
+}
+
+.gradient2{
+    background: linear-gradient(150deg,#09d7ff,#e81beb) !important;
+}
+.gradient3{
+    background: linear-gradient(150deg, rgb(0, 255, 209), rgb(103, 117, 220), rgb(255, 0, 249)) !important;
+}
+
+.gradient4 {
+    background: linear-gradient(150deg,#ffb300, #e100ff, #50f)!important;
+}
+.gradient8 {
+    background: linear-gradient(150deg,#ffb300, #e100ff)!important;
+}
+
+.gradient5 {
+    background: linear-gradient(150deg,#7c51ed,#1473fe)!important;
+}
+
+.gradient6 {
+    background: linear-gradient(150deg,#f01e58,#8b49e5) !important;
+}
+
+.gradientext7 {
+    background: linear-gradient(150deg,#0079ff,#19bea2)!important;
+}

@@ -1,0 +1,10 @@
+node_modules
+.idea
+
+#Hardhat files
+cache
+artifacts
+protocol-v2
+.DS_Store
+
+frontend/src/deployed-contracts.json
