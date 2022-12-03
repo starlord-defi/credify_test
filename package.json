@@ -9,7 +9,12 @@
     "test": "hardhat test",
     "client": "npm start --prefix frontend",
     "server": "npm run server --prefix backend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "local:deploy-contracts": "hardhat --network local local:deploy-contracts",
+    "local:deploy-tokens": "hardhat --network local local:deploy-tokens",
+    "compile": "SKIP_LOAD=true hardhat compile",
+    "local:mint-tokens": "hardhat --network local local:mint-tokens",
+    "local:test-protocol": "hardhat --network local local:test-protocol"
   },
   "license": "",
   "devDependencies": {
@@ -22,6 +27,7 @@
   },
   "dependencies": {
     "concurrently": "^7.6.0",
+    "lowdb": "^5.0.5",
     "nodemon": "^2.0.20",
     "react-icons": "^4.4.0"
   }
