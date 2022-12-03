@@ -6,10 +6,8 @@ import Address from './components/Address';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import {
   setAddress,
-  setUserSummary,
-  setUserBalances,
+  loadUserData
 } from './store/slices/accountSlice';
-//import { setReserve } from "./store/slices/reserveSlice";
 import './styles/color.css';
 import './styles/navbar.css';
 
@@ -104,13 +102,18 @@ export default function Dapp() {
     try {
       setInjectedProvider(pro);
       dispatch(setAddress({ address: addr }));
+      disProps = {
+        pro: pro,
+        addr: addr
+      }
+      dispatch(loadUserData(disProps))
     } catch (err) {
       console.log('Error in Dispatch and setInjectedProvider: ', err);
     }
 
     try {
       disProps = { pro: pro, addr: addr };
-    } catch (err) {}
+    } catch (err) { }
 
     provider.on('chainChanged', chainId => {
       console.log(`chain changed to ${chainId}! updating providers`);
@@ -281,9 +284,6 @@ export default function Dapp() {
                     </NavLink>
                     <NavLink className='navlink' to='/about'>
                       About Us
-                    </NavLink>
-                    <NavLink className='navlink' to='/contact'>
-                      Contact
                     </NavLink>
                   </li>
                 </ul>

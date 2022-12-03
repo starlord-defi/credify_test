@@ -26,6 +26,7 @@ task("local:test-protocol", "Deploys contracts and initialises")
         const DAI = await ethers.getContractAt("MintableERC20", address.DAI);
 
         const [sender] = await ethers.getSigners();
+
         console.log("Proto")
 
         console.log("contract: ", protocol, "address: ", address)
@@ -51,6 +52,18 @@ task("local:test-protocol", "Deploys contracts and initialises")
         await DAI.approve(protocol.address, APPROVAL_AMOUNT_LENDING_POOL)
         tx = await protocol.deposit(ethers.utils.parseEther('10000'), address.DAI)
         console.log("Deposited")
+
+        tx = await protocol.setCredit(30)
+        console.log("SetCredit")
+
+        tx = await protocol.applyBorrow(ethers.utils.parseEther('10'), DAI.address, 30, "DAI")
+        console.log("AppliedForBorrow")
+
+        tx = await protocol.vote(sender.address)
+        console.log("Voted")
+
+        tx = await protocol.getData(sender.address)
+        console.log("Data: ", tx)
 
     });
 

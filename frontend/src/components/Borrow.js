@@ -1,7 +1,12 @@
 import React from 'react';
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Tag, Button, Input } from 'antd';
+import { useSelector } from 'react-redux';
+
 
 export default function Borrow(props) {
+
+  const reserves = useSelector((state) => state.account.reserves)
+
   const columns = [
     {
       title: 'Asset', //props.titles.asset
@@ -15,29 +20,29 @@ export default function Borrow(props) {
       key: 'apy',
     },
     {
-      title: 'Amount To Borrow',
-      dataIndex: 'atb',
-      key: 'atb',
-    },
-    {
-      title: '',
-      dataIndex: 'check',
-      key: 'check',
-    },
-    {
       title: '',
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-                        <a>Supply</a>
-                        <a>Details</a>
-                      
+          <Button>
+            Supply
+          </Button>
         </Space>
       ),
     },
   ];
 
-  const data = [];
+  const reservesList = []
+  const data = reserves ? reserves.map((data, key) => {
+    console.log("data: ", data.name)
+    reservesList.push(
+      {
+        key: key,
+        asset: data.name,
+        apy: "10%",
+      })
+  })
+    : ""
 
   return (
     <div style={{ height: '82.5vh' }}>
@@ -45,7 +50,7 @@ export default function Borrow(props) {
         Credit Score: {props.creditScore}{' '}
       </h1>
       <h2 style={{ textAlign: 'center' }}>Borrow Asset Table</h2>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} dataSource={reservesList} />
     </div>
   );
 }

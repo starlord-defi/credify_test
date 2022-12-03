@@ -6,35 +6,38 @@ import {IMintableERC20} from "./IMintableERC20.sol";
 pragma experimental ABIEncoderV2;
 
 contract Protocol {
-    uint256 totalNoOfVoters;
+    uint256 totalNoOfVoters = 0;
     address[] assets;
-    uint256 totalAssets;
+    uint256 totalAssets = 0;
 
     struct reserveSet {
         address cTokenAddress;
         address debtTokenAddress;
         address credTokensAddress;
+        address reserveAddress;
         string name;
     }
 
     struct borrowSet {
         uint256 amount;
         address asset;
+        string assetName;
         address user;
         uint256 creditScore;
         uint256 noOfVotes;
         bool approved;
-        mapping(address => bool) voted;
     }
 
     struct userSet {
         uint256 creditscore;
+        bool set;
     }
 
     mapping(address => bool) internal voters;
     mapping(address => reserveSet) public reserves;
     mapping(address => borrowSet) public borrows;
     mapping(address => userSet) public users;
+    mapping(address => mapping(address => bool)) voted;
 
     event Deposit(
         address indexed reserveAddress,
@@ -67,20 +70,21 @@ contract Protocol {
         reserve.cTokenAddress = cTokenAddress;
         reserve.debtTokenAddress = debtTokenAddress;
         reserve.credTokensAddress = credTokensAddress;
+        reserve.reserveAddress = reserveAddress;
         reserve.name = name;
     }
 
-    function vote(address appliant) external {
+    function vote(address appliant) external returns (bool) {
         borrowSet storage borrow = borrows[appliant];
-        bool voted = borrow.voted[msg.sender];
-        require(voted == false, "Already Voted");
-        borrow.voted[msg.sender] = true;
+        address user = borrow.user;
+        bool votedTemp = voted[msg.sender][user];
+        require(votedTemp == false, "Already Voted for this Application");
+        voted[msg.sender][user] = true;
         uint256 noOfVotes = borrow.noOfVotes;
         borrow.noOfVotes = noOfVotes + 1;
 
         if (noOfVotes > (totalNoOfVoters / 2)) {
             address asset = borrow.asset;
-            address user = borrow.user;
             uint256 amount = borrow.amount;
             reserveSet storage reserve = reserves[asset];
             address debtToken = reserve.debtTokenAddress;
@@ -88,16 +92,18 @@ contract Protocol {
             borrow.approved = true;
             IMintableERC20(cToken).transferUnderlyingTo(user, amount, asset);
             IMintableERC20(debtToken).mint(amount, user);
+            return (true);
             //Notify through Push
         } else {
-            return;
+            return (false);
         }
     }
 
     function applyBorrow(
         uint256 amount,
         address asset,
-        uint256 creditscore
+        uint256 creditscore,
+        string calldata name
     ) external {
         userSet memory user = users[msg.sender];
 
@@ -111,10 +117,13 @@ contract Protocol {
         borrow.user = msg.sender;
         borrow.creditScore = user.creditscore;
         borrow.asset = asset;
+        borrow.assetName = name;
     }
 
     function setCredit(uint256 creditScore) external {
         userSet storage user = users[msg.sender];
+        require(user.set == false, "CreditScore already set");
+        user.set = true;
         user.creditscore = creditScore;
     }
 
@@ -130,10 +139,30 @@ contract Protocol {
         return (assets, totalAssets);
     }
 
-    // function getData() external view returns(){
-    //     reserveSet[] reservesTemp;
-    // for (uint256 i = 0; i < totalAssets; i++) {
-    //           reservesTemp.push(reserves[assets[i]]);
-    // }
-    //         return (reservesTemp,, )
+    function getData(address user)
+        external
+        view
+        returns (
+            reserveSet[] memory,
+            borrowSet memory,
+            uint256,
+            uint256
+        )
+    {
+        reserveSet[] memory reservesTemp = new reserveSet[](assets.length);
+        for (uint256 i = 0; i < totalAssets; i++) {
+            address assetAddress = assets[i];
+            reserveSet memory reserveT = reservesTemp[i];
+            reserveSet memory reserve = reserves[assetAddress];
+            reserveT.cTokenAddress = reserve.cTokenAddress;
+            reserveT.debtTokenAddress = reserve.debtTokenAddress;
+            reserveT.credTokensAddress = reserve.credTokensAddress;
+            reserveT.reserveAddress = reserve.reserveAddress;
+            reserveT.name = reserve.name;
+        }
+
+        borrowSet memory borrowTemp = borrows[user];
+
+        return (reservesTemp, borrowTemp, totalNoOfVoters, totalAssets);
+    }
 }

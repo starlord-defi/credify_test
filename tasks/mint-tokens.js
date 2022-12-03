@@ -20,7 +20,7 @@ task("local:mint-tokens", "Deploys contracts and initialises")
         const DAI = await ethers.getContractAt("MintableERC20", address.DAI);
         const [sender] = await ethers.getSigners();
 
-        await DAI.mint(ethers.utils.parseEther('10000'), sender.address)
+        await DAI.mint(ethers.utils.parseEther('100000000000'), sender.address)
         console.log("Minted")
 
     });

@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { actionCreditScore } from "../store/slices/accountSlice"
 
 export default function Dashboard(provider) {
+
+  const dispatch = useDispatch();
+  const address = useSelector(state => state.account.address);
+  const creditScore = useSelector(state => state.account.creditScore);
+
+  const getCreditScore = async () => {
+    const userData = {
+      public_address: address
+    }
+    await dispatch(actionCreditScore(userData))
+  }
+
   return (
     <div className='dashboard' id='dashboard' style={{ height: '82.5vh' }}>
       <div className='credit-overview' style={{ textAlign: 'center' }}>
@@ -32,10 +46,11 @@ export default function Dashboard(provider) {
               padding: '0.25rem',
             }}
           >
-            <h1 style={{ fontSize: '48px' }}>60.4</h1>
+            <h1 style={{ fontSize: '48px' }}>{creditScore ? "0" : creditScore}</h1>
           </div>
         </div>
         <button
+          onClick={getCreditScore}
           style={{
             background:
               'linear-gradient(150deg,#ee9f0c 10.51%, #dbea14 93.41%)',

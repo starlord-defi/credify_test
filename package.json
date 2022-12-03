@@ -26,6 +26,7 @@
     "hardhat": "^2.12.3",
     "husky": "^4.2.5"
   },
+  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@openzeppelin/contracts": "^4.8.0",
     "concurrently": "^7.6.0",
