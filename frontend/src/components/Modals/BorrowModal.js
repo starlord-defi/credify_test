@@ -79,6 +79,10 @@ export default function BorrowModal() {
 
                     </div>
 
+                    <Button>
+                        Borrow
+                    </Button>
+
                 </div> : ""}
             </Modal>
         </div>

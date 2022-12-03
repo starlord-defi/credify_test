@@ -79,6 +79,10 @@ export default function SupplyModal() {
 
                     </div>
 
+                    <Button>
+                        Supply
+                    </Button>
+
                 </div> : ""}
             </Modal>
         </div>

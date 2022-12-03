@@ -79,6 +79,10 @@ export default function RepayModal() {
 
                     </div>
 
+                    <Button>
+                        Repay
+                    </Button>
+
                 </div> : ""}
             </Modal>
         </div>

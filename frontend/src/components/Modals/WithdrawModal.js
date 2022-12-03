@@ -79,6 +79,10 @@ export default function WithdrawModal() {
 
                     </div>
 
+                    <Button>
+                        Withdraw
+                    </Button>
+
                 </div> : ""}
             </Modal>
         </div>
