@@ -25,6 +25,7 @@
     "hardhat": "^2.9.9",
     "husky": "^4.2.5"
   },
+  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "concurrently": "^7.6.0",
     "lowdb": "^5.0.5",

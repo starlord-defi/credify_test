@@ -14,12 +14,14 @@ contract Protocol {
         address cTokenAddress;
         address debtTokenAddress;
         address credTokensAddress;
+        address reserveAddress;
         string name;
     }
 
     struct borrowSet {
         uint256 amount;
         address asset;
+        string assetName;
         address user;
         uint256 creditScore;
         uint256 noOfVotes;
@@ -68,6 +70,7 @@ contract Protocol {
         reserve.cTokenAddress = cTokenAddress;
         reserve.debtTokenAddress = debtTokenAddress;
         reserve.credTokensAddress = credTokensAddress;
+        reserve.reserveAddress = reserveAddress;
         reserve.name = name;
     }
 
@@ -99,7 +102,8 @@ contract Protocol {
     function applyBorrow(
         uint256 amount,
         address asset,
-        uint256 creditscore
+        uint256 creditscore,
+        string calldata name
     ) external {
         userSet memory user = users[msg.sender];
 
@@ -113,6 +117,7 @@ contract Protocol {
         borrow.user = msg.sender;
         borrow.creditScore = user.creditscore;
         borrow.asset = asset;
+        borrow.assetName = name;
     }
 
     function setCredit(uint256 creditScore) external {
@@ -134,7 +139,7 @@ contract Protocol {
         return (assets, totalAssets);
     }
 
-    function getData()
+    function getData(address user)
         external
         view
         returns (
@@ -152,10 +157,11 @@ contract Protocol {
             reserveT.cTokenAddress = reserve.cTokenAddress;
             reserveT.debtTokenAddress = reserve.debtTokenAddress;
             reserveT.credTokensAddress = reserve.credTokensAddress;
+            reserveT.reserveAddress = reserve.reserveAddress;
             reserveT.name = reserve.name;
         }
 
-        borrowSet memory borrowTemp = borrows[msg.sender];
+        borrowSet memory borrowTemp = borrows[user];
 
         return (reservesTemp, borrowTemp, totalNoOfVoters, totalAssets);
     }

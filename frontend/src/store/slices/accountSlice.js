@@ -1,9 +1,67 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from "axios";
+import protocolABI from "../../contracts/Protocol.json"
+import deployedContracts from "../../contracts/contract-address.json"
+import { ethers } from 'ethers'
+
+export const actionCreditScore = createAsyncThunk("account/actionCreditScore", async (userData, { rejectWithValue }) => {
+    let response = null
+    try {
+        response = await axios.post("/api/credit/creditscore", userData)
+    }
+    catch (err) {
+        console.log("err: ", err.response.data)
+        return rejectWithValue(err.response.data)
+    }
+    console.log("response: ", response)
+    return ({ response: response.data })
+})
+
+export const loadUserData = createAsyncThunk("account/loadUserData", async (props) => {
+    const { pro, addr } = props
+
+    const protocol_address = deployedContracts.Protocol
+    const protocol_contract = new ethers.Contract(
+        protocol_address,
+        protocolABI.abi,
+        pro
+    )
+    console.log("pro ", pro, "protocol_address ", protocol_address, "protocolABI.abi ", protocolABI.abi)
+
+    let res = await protocol_contract.getData(addr)
+    let reserves = res[0]
+    let borrowApplicationTemp = res[1]
+    let borrowApplication = {
+        amount: borrowApplicationTemp.amount.toString(),
+        creditScore: borrowApplicationTemp.creditScore.toString(),
+        noOfVotes: borrowApplicationTemp.noOfVotes.toString(),
+        asset: borrowApplicationTemp.asset.toString(),
+        assetName: borrowApplicationTemp.assetName.toString(),
+        user: borrowApplicationTemp.user.toString(),
+        approved: borrowApplicationTemp.approved.toString()
+    }
+    let totalNoOfVoters = res[2].toString()
+    let totalAssets = res[3].toString()
+
+    console.log("res: ", reserves, "borrowApplication: ", borrowApplication, "totalNoOfVoters: ", totalNoOfVoters, "totalAssets: ", totalAssets)
+    return ({
+        reserves,
+        borrowApplication,
+        totalNoOfVoters,
+        totalAssets
+    })
+
+})
 
 const initialState = {
     address: null,
-    userSummary: null,
-    userWalletBalancesDictionary: null
+    creditScore: null,
+    error: null,
+    loading: false,
+    reserves: null,
+    borrowApplication: null,
+    totalNoOfVoters: null,
+    totalAssets: null
 }
 
 export const accountSlice = createSlice({
@@ -13,16 +71,43 @@ export const accountSlice = createSlice({
         setAddress: (state, action) => {
             state.address = action.payload.address
         },
-        setUserSummary: (state, action) => {
-            state.userSummary = action.payload.userSummary
-        },
-        setUserBalances: (state, action) => {
-            state.userWalletBalancesDictionary = action.payload.userWalletBalancesDictionary
-        },
     },
+    extraReducers: builder => {
+        builder
+            .addCase(actionCreditScore.pending, state => {
+                state.loading = true;
+            })
+            .addCase(actionCreditScore.fulfilled, (state, action) => {
+                state.creditScore = action.payload.response;
+                state.loading = false;
+            })
+            .addCase(actionCreditScore.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload.error
+                console.log(action.payload.error);
+            })
+
+            /////////////////////////////////////////////////////////////////
+
+            .addCase(loadUserData.pending, state => {
+                state.loading = true;
+            })
+            .addCase(loadUserData.fulfilled, (state, action) => {
+                state.reserves = action.payload.reserves;
+                state.borrowApplication = action.payload.borrowApplication;
+                state.totalNoOfVoters = action.payload.totalNoOfVoters;
+                state.totalAssets = action.payload.totalAssets;
+
+                state.loading = false;
+            })
+            .addCase(loadUserData.rejected, (state, { error }) => {
+                state.loading = false;
+                console.log(error);
+            })
+    }
 })
 
 // Action creators are generated for each case reducer function
-export const { setAddress, setUserSummary, setUserBalances } = accountSlice.actions
+export const { setAddress } = accountSlice.actions
 
 export default accountSlice.reducer

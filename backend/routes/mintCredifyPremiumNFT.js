@@ -11,9 +11,7 @@ async function storeFiles() {
     const cid = await client.put(files)
 
     console.log(cid)
-    
+
 }
 
-
-
-storeFiles() |
+storeFiles() 
