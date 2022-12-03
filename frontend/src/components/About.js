@@ -65,7 +65,9 @@ export default function About() {
               position: 'relative',
               top: '250px',
               left: '220px',
-              zIndex: '3',
+              zIndex: '2',
+              userSelect: 'none',
+              boxShadow: '3px solid black',
             }}
           >
             Connect Your Wallet
