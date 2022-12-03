@@ -1,0 +1,137 @@
+#para-button {
+  cursor: pointer;
+}
+#para-button:hover {
+  background-color: white;
+}
+
+#metamask,
+#walletconnect,
+#portis,
+#formatic,
+#authereum,
+#coinbase {
+  height: 120px;
+  border-radius: 140px;
+  position: relative;
+}
+
+@keyframes one {
+  0% {
+    top: -50%;
+  }
+  50% {
+    top: -2%;
+  }
+  100% {
+    top: -50%;
+  }
+}
+
+@keyframes forone {
+  0% {
+    top: -2%;
+  }
+  50% {
+    top: -50%;
+  }
+  100% {
+    top: -2%;
+  }
+}
+
+@keyframes two {
+  0% {
+    top: -45%;
+  }
+  50% {
+    top: -7%;
+  }
+  100% {
+    top: -45%;
+  }
+}
+
+@keyframes fortwo {
+  0% {
+    top: -7%;
+  }
+  50% {
+    top: -45%;
+  }
+  100% {
+    top: -7%;
+  }
+}
+
+@keyframes three {
+  0% {
+    top: -40%;
+  }
+  50% {
+    top: -10%;
+  }
+  100% {
+    top: -40%;
+  }
+}
+
+@keyframes forthree {
+  0% {
+    top: -10%;
+  }
+  50% {
+    top: -40%;
+  }
+  100% {
+    top: -10%;
+  }
+}
+
+#metamask {
+  top: -50%;
+  right: -50%;
+  animation-name: one;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+#portis {
+  top: -45%;
+  right: -50%;
+  animation-name: two;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+#walletconnect {
+  top: -40%;
+  right: -75%;
+  animation-name: three;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+#formatic {
+  top: -2%;
+  right: -25.5%;
+  animation-name: forone;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+#authereum {
+  top: -7%;
+  right: -34%;
+  animation-name: fortwo;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+}
+
+#coinbase {
+  top: -10%;
+  right: -42.5%;
+  animation-name: forthree;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
