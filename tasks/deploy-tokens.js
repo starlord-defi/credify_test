@@ -7,6 +7,7 @@ const contractID = {
     DAI: "DAI",
     MINTABLEERC20: "MintableERC20",
     CREDITTOKEN: "creditToken",
+    CREDITNFT: "CredifyPremiumNFT"
 }
 
 task("local:deploy-tokens", "Deploys contracts and initialises")
@@ -44,6 +45,12 @@ task("local:deploy-tokens", "Deploys contracts and initialises")
         await crcontract.deployed();
 
         saveFrontendFiles(crcontract, contractID.CREDITTOKEN, contractID.MINTABLEERC20);
+
+        Contract = await ethers.getContractFactory("CredifyPremiumNFT");
+        contract = await Contract.deploy();
+       await contract.deployed();
+       console.log("contract address NFT:", contractID.CREDITNFT, contract.address);
+       saveFrontendFiles(contract, contractID.CREDITNFT, contractID.CREDITNFT);
 
         console.log("contract", contract.address)
         console.log("ccontract", ccontract.address)
