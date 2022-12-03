@@ -1,6 +1,7 @@
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
 import { useSelector } from 'react-redux';
+import SupplyModal from './Modals/SupplyModal';
 
 import protocolABI from "../contracts/Protocol.json"
 import deployedContracts from "../contracts/contract-address.json"
@@ -37,6 +38,11 @@ export default function Lend(provider) {
       title: '',
       dataIndex: 'input',
       key: 'input',
+      render: (_, record) => (
+        <Space size='middle'>
+          <SupplyModal />
+        </Space>
+      )
     },
     {
       title: '',
@@ -44,7 +50,6 @@ export default function Lend(provider) {
       render: (_, record) => (
         <Space size='middle'>
           <a>Supply</a>
-
         </Space>
       ),
     },

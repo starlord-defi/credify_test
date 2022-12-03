@@ -14,7 +14,8 @@
     "local:deploy-tokens": "hardhat --network local local:deploy-tokens",
     "compile": "SKIP_LOAD=true hardhat compile",
     "local:mint-tokens": "hardhat --network local local:mint-tokens",
-    "local:test-protocol": "hardhat --network local local:test-protocol"
+    "local:test-protocol": "hardhat --network local local:test-protocol",
+    "local:test-nft":"hardhat --network local local:test-nft"
   },
   "license": "",
   "devDependencies": {
@@ -22,11 +23,12 @@
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.1.1",
-    "hardhat": "^2.9.9",
+    "hardhat": "^2.12.3",
     "husky": "^4.2.5"
   },
   "proxy": "http://127.0.0.1:5000",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.8.0",
     "concurrently": "^7.6.0",
     "lowdb": "^5.0.5",
     "nodemon": "^2.0.20",
