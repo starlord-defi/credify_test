@@ -1,14 +1,14 @@
-import { Button, Card, Col, Input, Modal, Row } from 'antd';
+import { Button, Card, Col, Input, message, Modal, Row } from 'antd';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
+import protocolABI from "../../contracts/Protocol.json"
+import deployedContracts from "../../contracts/contract-address.json"
 import { ethers } from 'ethers';
 
-//import { loadReserveSummary, loadUserSummary, loadWalletSummary } from '../../../store/slices/reserveSlice';
-
-export default function BorrowModal() {
+export default function BorrowModal(record) {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [gas, setGas] = useState()
@@ -16,12 +16,12 @@ export default function BorrowModal() {
     const [disableSuccessOrFailureComp, setDisableSuccessOrFailureComp] = useState(true)
     const [clicked, setClicked] = useState(false)
     const [amount, setAmount] = useState(0)
+    const creditScore = useSelector(state => state.account.creditScore);
 
+    const provider = record.provider
 
     const showModal = () => {
         setVisible(true)
-        setClicked(true)
-        setDisableSuccessOrFailureComp(true)
         setSuccess(false)
     };
 
@@ -31,16 +31,30 @@ export default function BorrowModal() {
 
     const handleOk = async () => {
 
+        const signer = provider.provider.getSigner()
+        const protocol_address = deployedContracts.Protocol
+        const protocol_contract = new ethers.Contract(
+            protocol_address,
+            protocolABI.abi,
+            signer
+        )
+
+        let name = record.record.record.name
+        let amountT = amount.amount
+        let asset = record.record.record.reserveAddress
+        amountT = ethers.utils.parseEther(amountT)
+        console.log(amountT, asset, creditScore, name, asset)
+
+        let tx = await protocol_contract.applyBorrow(amountT, asset, creditScore, name)
+        await tx.wait()
+        message.success("Applied for Loan")
     };
 
     const onChange = async (e) => {
-
         setAmount({
             amount: e.target.value
         })
-
     }
-
 
     return (
         <div>
@@ -52,7 +66,6 @@ export default function BorrowModal() {
                 width={420}
                 visible={visible}
                 title="Borrow"
-                onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[
                     ,
@@ -70,7 +83,7 @@ export default function BorrowModal() {
                                         <Input className='input' placeholder='0.00' bordered={false} onChange={onChange} value={amount ? amount.amount : ""} inputMode='numeric' />
                                     </Col>
                                     <Col className='col-right input-asset-name'>
-                                        <h3 style={{ textAlign: 'right' }}>Asset</h3>
+                                        <h3 style={{ textAlign: 'right' }}>DAI</h3>
                                     </Col>
                                 </Row>
                             </Row>
@@ -79,7 +92,7 @@ export default function BorrowModal() {
 
                     </div>
 
-                    <Button>
+                    <Button onClick={handleOk}>
                         Borrow
                     </Button>
 

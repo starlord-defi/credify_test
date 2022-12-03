@@ -10,17 +10,17 @@ export default function Lend(provider) {
 
   const reserves = useSelector((state) => state.account.reserves)
 
-  const onClick = async () => {
+  // const onClick = async () => {
 
-    const protocol_address = deployedContracts.Protocol
-    const protocol_contract = new ethers.Contract(
-      protocol_address,
-      protocolABI.abi,
-      provider.provider
-    )
+  //   const protocol_address = deployedContracts.Protocol
+  //   const protocol_contract = new ethers.Contract(
+  //     protocol_address,
+  //     protocolABI.abi,
+  //     provider.provider
+  //   )
 
-    await protocol_contract.deposit()
-  }
+  //   await protocol_contract.deposit()
+  // }
 
   const columnsSupply = [
     {
@@ -40,18 +40,9 @@ export default function Lend(provider) {
       key: 'input',
       render: (_, record) => (
         <Space size='middle'>
-          <SupplyModal />
+          <SupplyModal provider={provider} record={record} />
         </Space>
       )
-    },
-    {
-      title: '',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <a>Supply</a>
-        </Space>
-      ),
     },
   ];
 
@@ -72,15 +63,6 @@ export default function Lend(provider) {
       dataIndex: 'amountSupplied',
       key: 'amountSupplied',
     },
-    {
-      title: '',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <a>Supply</a>
-        </Space>
-      ),
-    },
   ];
 
   const reservesList = []
@@ -91,7 +73,7 @@ export default function Lend(provider) {
         key: key,
         asset: data.name,
         apy: "10%",
-        amountSupplied: "123"
+        record: data
       })
   })
     : ""

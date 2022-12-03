@@ -5,10 +5,15 @@ import { useSelector } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { ethers } from 'ethers';
+import { message } from 'antd';
+import protocolABI from "../../contracts/Protocol.json"
+import DAIabi from "../../contracts/MintableERC20.json"
+import deployedContracts from "../../contracts/contract-address.json"
+
 
 //import { loadReserveSummary, loadUserSummary, loadWalletSummary } from '../../../store/slices/reserveSlice';
 
-export default function SupplyModal() {
+export default function SupplyModal(record) {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [gas, setGas] = useState()
@@ -16,6 +21,9 @@ export default function SupplyModal() {
     const [disableSuccessOrFailureComp, setDisableSuccessOrFailureComp] = useState(true)
     const [clicked, setClicked] = useState(false)
     const [amount, setAmount] = useState(0)
+
+    const name = record.record.name
+    const provider = record.provider
 
 
     const showModal = () => {
@@ -30,7 +38,32 @@ export default function SupplyModal() {
     };
 
     const handleOk = async () => {
+        const signer = provider.provider.getSigner()
+        const protocol_address = deployedContracts.Protocol
+        let DAIAddress = deployedContracts.DAI
+        const protocol_contract = new ethers.Contract(
+            protocol_address,
+            protocolABI.abi,
+            signer)
 
+        const DAI = new ethers.Contract(
+            DAIAddress,
+            DAIabi.abi,
+            signer
+        )
+
+        let amountT = amount.amount
+        let asset = record.record.record.reserveAddress
+
+        const APPROVAL_AMOUNT_LENDING_POOL = '1000000000000000000000000000';
+
+        let tx = await DAI.approve(protocol_address, APPROVAL_AMOUNT_LENDING_POOL)
+        await tx.wait()
+
+        amountT = ethers.utils.parseEther(amountT)
+        tx = await protocol_contract.deposit(amountT, asset)
+        await tx.wait()
+        message.success("Deposited")
     };
 
     const onChange = async (e) => {
@@ -52,7 +85,6 @@ export default function SupplyModal() {
                 width={420}
                 visible={visible}
                 title="Supply"
-                onOk={handleOk}
                 onCancel={handleCancel}
                 footer={[
                     ,
@@ -79,7 +111,7 @@ export default function SupplyModal() {
 
                     </div>
 
-                    <Button>
+                    <Button onClick={handleOk}>
                         Supply
                     </Button>
 

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { actionCreditScore } from "../store/slices/accountSlice"
+import protocolABI from "../contracts/Protocol.json"
+import deployedContracts from "../contracts/contract-address.json"
+import { ethers } from 'ethers';
+import { message } from 'antd';
 
 export default function Dashboard(provider) {
 
@@ -9,10 +13,18 @@ export default function Dashboard(provider) {
   const creditScore = useSelector(state => state.account.creditScore);
 
   const getCreditScore = async () => {
-    const userData = {
-      public_address: address
-    }
-    await dispatch(actionCreditScore(userData))
+
+    const signer = provider.provider.getSigner()
+    const protocol_address = deployedContracts.Protocol
+    const protocol_contract = new ethers.Contract(
+      protocol_address,
+      protocolABI.abi,
+      signer
+    )
+    console.log("creditScore: ", creditScore)
+    let tx = await protocol_contract.setCredit(creditScore)
+    await tx.wait()
+
   }
 
   return (
@@ -46,7 +58,7 @@ export default function Dashboard(provider) {
               padding: '0.25rem',
             }}
           >
-            <h1 style={{ fontSize: '48px' }}>{creditScore ? "0" : creditScore}</h1>
+            <h1 style={{ fontSize: '48px' }}>{creditScore}</h1>
           </div>
         </div>
         <button
@@ -63,7 +75,7 @@ export default function Dashboard(provider) {
             color: 'white',
           }}
         >
-          Calculate My Credit Score!
+          Store on Blockchain
         </button>
       </div>
     </div>

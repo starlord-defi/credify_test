@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Space, Table, Tag, Button, Input } from 'antd';
 import { useSelector } from 'react-redux';
 import BorrowModal from './Modals/BorrowModal';
-import RepayModal from './Modals/RepayModal';
 
 
-export default function Borrow(props) {
+export default function Borrow(provider) {
 
   const reserves = useSelector((state) => state.account.reserves)
+  const creditScore = useSelector((state) => state.account.creditScore);
 
   const columns = [
     {
@@ -27,20 +27,9 @@ export default function Borrow(props) {
       key: 'amountInput',
       render: (_, record) => (
         <Space size='middle'>
-          <BorrowModal />
+          <BorrowModal record={record} provider={provider} />
         </Space>
       )
-    },
-    {
-      title: '',
-      key: 'action',
-      render: (_, record) => (
-        <Space size='middle'>
-          <Button>
-            Supply
-          </Button>
-        </Space>
-      ),
     },
   ];
 
@@ -52,58 +41,22 @@ export default function Borrow(props) {
         key: key,
         asset: data.name,
         apy: "10%",
+        record: data
       })
   })
     : ""
 
-
-
-  const columnsBorrowed = [
-    {
-      title: 'Asset', //props.titles.asset
-      dataIndex: 'asset',
-      key: 'asset',
-      render: text => <a>{text}</a>,
-    },
-    {
-      title: 'Annual Percentage Yield',
-      dataIndex: 'apy',
-      key: 'apy',
-    },
-    {
-      title: '',
-      dataIndex: 'Debt',
-      key: 'Debt',
-      render: (_, record) => (
-        <Space size='middle'>
-          <RepayModal/>
-        </Space>
-      )
-    },
-  ];
-
-  const reservesListBorrowed = []
-  const dataBorrowed = reserves ? reserves.map((data, key) => {
-    console.log("data: ", data.name)
-    reservesList.push(
-      {
-        key: key,
-        asset: data.name,
-        apy: "10%",
-      })
-  })
-    : ""
-
+  useEffect(() => {
+    console.log("creditScore: ", creditScore)
+  }, [creditScore])
 
   return (
     <div style={{ height: '82.5vh' }}>
       <h1 style={{ textAlign: 'center' }}>
-        Credit Score: {props.creditScore}{' '}
+        Credit Score: {creditScore}
       </h1>
       <h2 style={{ textAlign: 'center' }}>Borrow Asset Table</h2>
       <Table columns={columns} dataSource={reservesList} />
-      <h2>Borrowed assets</h2>
-      <Table columns={columnsBorrowed} dataSource={reservesListBorrowed} />
     </div>
   );
 }

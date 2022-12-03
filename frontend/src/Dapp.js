@@ -6,7 +6,8 @@ import Address from './components/Address';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import {
   setAddress,
-  loadUserData
+  loadUserData,
+  actionCreditScore
 } from './store/slices/accountSlice';
 import './styles/color.css';
 import './styles/navbar.css';
@@ -107,6 +108,12 @@ export default function Dapp() {
         addr: addr
       }
       dispatch(loadUserData(disProps))
+      const userData = {
+        public_address: addr,
+        addr: addr,
+        pro: pro
+      }
+      await dispatch(actionCreditScore(userData))
     } catch (err) {
       console.log('Error in Dispatch and setInjectedProvider: ', err);
     }
@@ -280,7 +287,7 @@ export default function Dapp() {
                       Lend
                     </NavLink>
                     <NavLink className='navlink' to='/list'>
-                      List Of Applications
+                      Applications
                     </NavLink>
                     <NavLink className='navlink' to='/about'>
                       About Us

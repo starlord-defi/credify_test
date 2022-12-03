@@ -5,12 +5,15 @@ import "hardhat/console.sol";
 import {IMintableERC20} from "./IMintableERC20.sol";
 pragma experimental ABIEncoderV2;
 
+import {ICredifyPremiumNFT} from "./ICredifyPremiumNFT.sol";
+
 contract Protocol {
     uint256 totalNoOfVoters = 0;
     address[] assets;
     uint256 totalAssets = 0;
     uint256 totalNoOfBorrowApplications;
     address[] borrowApplicants;
+    address nft;
 
     struct reserveSet {
         address cTokenAddress;
@@ -46,6 +49,10 @@ contract Protocol {
         address indexed user,
         uint256 amount
     );
+
+    function setNFTAddress(address nfttt) external {
+        nft = nfttt;
+    }
 
     function deposit(uint256 amount, address reserveAddress) external {
         totalNoOfVoters = totalNoOfVoters + 1;
@@ -128,6 +135,22 @@ contract Protocol {
         require(user.set == false, "CreditScore already set");
         user.set = true;
         user.creditscore = creditScore;
+        if (creditScore >= 30) {
+            console.log("In:");
+            ICredifyPremiumNFT(nft).mintCredifyPremium(
+                creditScore,
+                "Hi",
+                msg.sender
+            );
+            console.log("Printed");
+        }
+    }
+
+    function getCredit() external view returns (uint256, bool) {
+        userSet memory user = users[msg.sender];
+        uint256 cred = user.creditscore;
+        bool set = user.set;
+        return (cred, set);
     }
 
     function getReserve(address asset)

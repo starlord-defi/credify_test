@@ -48,9 +48,29 @@ task("local:deploy-tokens", "Deploys contracts and initialises")
 
         Contract = await ethers.getContractFactory("CredifyPremiumNFT");
         contract = await Contract.deploy();
-       await contract.deployed();
-       console.log("contract address NFT:", contractID.CREDITNFT, contract.address);
-       saveFrontendFiles(contract, contractID.CREDITNFT, contractID.CREDITNFT);
+        await contract.deployed();
+        console.log("contract address NFT:", contractID.CREDITNFT, contract.address);
+        saveFrontendFiles(contract, contractID.CREDITNFT, contractID.CREDITNFT);
+
+        const addressesFile =
+            __dirname + "/../frontend/src/contracts/contract-address.json";
+
+        if (!fs.existsSync(addressesFile)) {
+            console.error("You need to deploy your contract first");
+            return;
+        }
+
+        const addressJson = fs.readFileSync(addressesFile);
+        const address = JSON.parse(addressJson);
+
+        const protocol = await ethers.getContractAt("Protocol", address.Protocol);
+        const [sender] = await ethers.getSigners();
+
+        tx = await protocol.setNFTAddress(
+            contract.address
+        )
+        await tx.wait();
+        console.log("Added NFT")
 
         console.log("contract", contract.address)
         console.log("ccontract", ccontract.address)

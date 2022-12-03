@@ -4,17 +4,40 @@ import protocolABI from "../../contracts/Protocol.json"
 import deployedContracts from "../../contracts/contract-address.json"
 import { ethers } from 'ethers'
 
-export const actionCreditScore = createAsyncThunk("account/actionCreditScore", async (userData, { rejectWithValue }) => {
+export const actionCreditScore = createAsyncThunk("account/actionCreditScore", async (userData) => {
     let response = null
     try {
-        response = await axios.post("/api/credit/creditscore", userData)
+        const { pro, addr } = userData
+        const signer = pro.getSigner()
+        const protocol_address = deployedContracts.Protocol
+        const protocol_contract = new ethers.Contract(
+            protocol_address,
+            protocolABI.abi,
+            signer
+        )
+        let tx = await protocol_contract.getCredit()
+        let set = tx[1]
+        let score = tx[0].toString()
+
+        if (!set) {
+            console.log("tx: in set")
+            var userDataTemp = {
+                public_address: userData.public_address
+            }
+            console.log(userDataTemp)
+            response = await axios.post("/api/credit/creditscore", userDataTemp)
+            return ({ response: response.data })
+        }
+        else {
+            var obj = {
+                score: score
+            }
+            return ({ response: obj })
+        }
     }
     catch (err) {
-        console.log("err: ", err.response.data)
-        return rejectWithValue(err.response.data)
+        console.log("err: ", err)
     }
-    console.log("response: ", response)
-    return ({ response: response.data })
 })
 
 export const loadUserData = createAsyncThunk("account/loadUserData", async (props) => {
@@ -95,13 +118,13 @@ export const accountSlice = createSlice({
                 state.loading = true;
             })
             .addCase(actionCreditScore.fulfilled, (state, action) => {
-                state.creditScore = action.payload.response;
+                state.creditScore = action.payload.response.score;
+                console.log(action.payload.response.score)
                 state.loading = false;
             })
-            .addCase(actionCreditScore.rejected, (state, action) => {
+            .addCase(actionCreditScore.rejected, (state, { error }) => {
                 state.loading = false;
-                state.error = action.payload.error
-                console.log(action.payload.error);
+                console.log(error);
             })
 
             /////////////////////////////////////////////////////////////////

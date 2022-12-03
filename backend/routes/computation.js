@@ -2,6 +2,7 @@
 const express = require("express");
 const ethers = require("ethers")
 const router = express.Router();
+const storeFiles = require("./storeFiles");
 
 const LendingPool_abi = require("./artifacts/contracts/protocol/lendingpool/LendingPool.sol/LendingPool.json")
 
@@ -129,5 +130,11 @@ router.post("/creditscore", async (req, res) => {
 
 
 });
+
+router.post("/nftStore", async (req, res) => {
+    const cid = await storeFiles()
+    console.log("CID:", cid)
+})
+
 
 module.exports = router
