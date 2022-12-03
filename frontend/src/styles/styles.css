@@ -1,245 +1,235 @@
 body {
-    font-family: 'Inter', sans-serif;
-    overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
 .Dapp {
-    font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .borrowedAssetTable a {
-    color: black !important;
+  color: black !important;
 }
 
 .suppliedAssetTable a {
-    color: black !important;
+  color: black !important;
 }
 
 .borrowAssetTable a {
-    color: black !important;
+  color: black !important;
 }
 
 .supplyAssetTable a {
-    color: black !important;
+  color: black !important;
 }
 
 .textaligncenter {
-    text-align: center;
-    font-size: 1.5rem;
-    padding: 50px 50px 100px 50px;
-    background: #070a0e;
-    color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 50px 50px 100px 50px;
+  background: #070a0e;
+  color: white;
 }
 
 .textaligncenter .value {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 .staking-card {
-    margin-top: -100px;
+  margin-top: -100px;
 }
 
 .dashboard-details {
-    padding-top: 20px;
-    text-align: center;
+  padding-top: 20px;
+  text-align: center;
 }
 
 .dashboard-details p {
-    text-align: center;
+  text-align: center;
 }
 
 .svg path {
-    fill: url(#MyGradient);
+  fill: url(#MyGradient);
 }
 
 .anticon-check-circle path {
-    fill: #4caf50;
+  fill: #4caf50;
 }
 
-
 .stakingdiv {
-    padding-bottom: 4rem;
+  padding-bottom: 4rem;
 }
 
 .creditdiv {
-    padding-bottom: 4rem;
+  padding-bottom: 4rem;
 }
 
 .navbar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    font-size: 1.3rem;
-    color: black;
-    background-color: #001529;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-size: 1.3rem;
+  color: black;
+  background-color: #001529;
 }
 
 .ant-layout-header {
-    background: #070a0e !important;
+  background: #070a0e !important;
 
-    /* border-bottom: 1px solid #494B53 !important; */
+  /* border-bottom: 1px solid #494B53 !important; */
 }
 
 .navbar {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .navbar a {
-    color: white;
+  color: white;
 }
 
 .navbar a:hover {
-    color: #da00d9;
+  color: #da00d9;
 }
 
 .col-left {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .col-right {
-    margin-left: auto;
+  margin-left: auto;
 }
 
-
 .padding {
-    padding: 0px 3px 10px 3px;
+  padding: 0px 3px 10px 3px;
 }
 
 .dashboard-overview {
-    background-color: #070a0e;
-    color: white;
-    padding-bottom: 100px;
+  background-color: #070a0e;
+  color: white;
+  padding-bottom: 100px;
 }
 
 .dashboard-asset-table-container {
-    margin-top: -50px;
-    color: white;
+  margin-top: -50px;
+  color: white;
 }
 
 .ant-progress-text {
-    color: white !important;
+  color: white !important;
 }
 
 .credit-overview {
-    padding: 50px 70px 150px 70px;
-    background-color: #070a0e;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
+  padding: 50px 70px 150px 70px;
+  background-color: #070a0e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
 }
 
 .credit-table-row {
-    margin-top: -100px;
+  margin-top: -100px;
 }
 
-
-
-
-
-.net-apy-wrapper {
-    height: 140px;
-    width: 140px;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+.net-credit-wrapper {
+  height: 140px;
+  width: 140px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1ae;
 }
 
-.net-apy-wrapper .net-apy-description {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0.1875rem;
-    background-color: #070a0e;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    padding: 0.25rem;
+.net-credit-wrapper .net-credit-score {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0.1875rem;
+  background-color: #070a0e;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
 }
 
 .headline {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin-top: 0.2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 0.2rem;
 }
 
-
-
-
 .modalbody {
-    font-family: 'Inter', sans-serif;
-
+  font-family: 'Inter', sans-serif;
 }
 
 .ant-modal {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .ant-modal-body {
-    padding: 15px 20px 10px 20px !important;
+  padding: 15px 20px 10px 20px !important;
 }
 
 .input-div {
-    padding: 3px;
-    margin-bottom: 6px;
+  padding: 3px;
+  margin-bottom: 6px;
 }
 
 .input-div p {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .transaction-overview p {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .modalbody .input {
-    width: 250px;
-    height: 40px;
-    font-size: 1.5rem;
+  width: 250px;
+  height: 40px;
+  font-size: 1.5rem;
 }
 
 .modal-input-flex-div {
-    margin-top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
-    border: #ddd 1px solid;
-    padding: 3px 10px 4px 2px;
-    border-radius: 0.56rem;
-    width: 100%;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  border: #ddd 1px solid;
+  padding: 3px 10px 4px 2px;
+  border-radius: 0.56rem;
+  width: 100%;
 }
 
-
 .align-left {
-    margin-left: 0px;
+  margin-left: 0px;
 }
 
 .input-asset-name h3 {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin-top: auto;
-    margin-bottom: auto;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .modal-below-input-div {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .modal-p-below-input {
-    margin-left: 12px;
-    font-size: 0.9rem;
+  margin-left: 12px;
+  font-size: 0.9rem;
 }
 
 .below-input-div {
-    padding-top: 5px;
+  padding-top: 5px;
 }
 
 /* .transaction-overview{
@@ -247,88 +237,84 @@ body {
 } */
 
 .modal-transaction-overview-card {
-    margin: 6px 3px 10px 3px;
+  margin: 6px 3px 10px 3px;
 }
 
 .gas-div {
-    padding: 10px;
+  padding: 10px;
 }
 
 #transaction-card {
-    padding: 0px;
+  padding: 0px;
 }
 
 .borrow-apy-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .ant-switch-checked {
-    background-color: #4caf50 !important;
+  background-color: #4caf50 !important;
 }
 
 .ant-table-thead {
-    font-size: 0.75rem;
+  font-size: 0.75rem;
 }
 
 .ant-table-title h2 {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .modal-btn {
-    background: #1c1f28 !important;
-    border: none !important;
-    height: 40px !important;
-    width: 100% !important;
+  background: #1c1f28 !important;
+  border: none !important;
+  height: 40px !important;
+  width: 100% !important;
 }
 
 .ant-result,
 .ant-button {
-    font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-
-.ant-btn-primary{
-    background-color: #1c1f28 !important;
-    border: none !important;
+.ant-btn-primary {
+  background-color: #1c1f28 !important;
+  border: none !important;
 }
-
 
 .ant-btn-primary[disabled],
 .ant-btn-primary[disabled]:hover,
 .ant-btn-primary[disabled]:focus,
 .ant-btn-primary[disabled]:active {
-    background-color: #9094a7 !important;
-    color: white !important;
-    border: none !important;
+  background-color: #9094a7 !important;
+  color: white !important;
+  border: none !important;
 }
 
-
 .align-asset-name-image {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: left !important;
-    flex-direction: row !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: left !important;
+  flex-direction: row !important;
 }
 
 .credit-balance-dashboard {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    padding-top: 1rem;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 1rem;
+  text-align: center;
 }
 
 .ant-progress-text {
-    font-weight: 600 !important;
-    color: #9094a7 !important;
+  font-weight: 600 !important;
+  color: #9094a7 !important;
 }
 
-.align-input{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
+.align-input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
