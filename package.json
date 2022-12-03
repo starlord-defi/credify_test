@@ -14,7 +14,8 @@
     "local:deploy-tokens": "hardhat --network local local:deploy-tokens",
     "compile": "SKIP_LOAD=true hardhat compile",
     "local:mint-tokens": "hardhat --network local local:mint-tokens",
-    "local:test-protocol": "hardhat --network local local:test-protocol"
+    "local:test-protocol": "hardhat --network local local:test-protocol",
+    "local:test-nft":"hardhat --network local local:test-nft"
   },
   "license": "",
   "devDependencies": {
