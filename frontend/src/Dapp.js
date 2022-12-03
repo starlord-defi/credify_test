@@ -349,15 +349,15 @@ export default function Dapp() {
           </Routes>
 
           <Routes>
-            <Route path='/borrow' element={<Borrow />} />
+            <Route path='/borrow' element={<Borrow provider={injectedProvider} />} />
           </Routes>
 
           <Routes>
-            <Route path='/list' element={<BorrowersApplication />} />
+            <Route path='/list' element={<BorrowersApplication provider={injectedProvider} />} />
           </Routes>
 
           <Routes>
-            <Route path='/lend' element={<Lend />} />
+            <Route path='/lend' element={<Lend provider={injectedProvider} />} />
           </Routes>
 
           <Footer
