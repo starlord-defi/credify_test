@@ -32,7 +32,7 @@ export const loadUserData = createAsyncThunk("account/loadUserData", async (prop
     let reserves = res[0]
     let borrowApplicationTemp = res[1]
     let borrowApplication = {
-        amount: borrowApplicationTemp.amount.toString(),
+        amount: ethers.utils.formatEther(borrowApplicationTemp.amount),
         creditScore: borrowApplicationTemp.creditScore.toString(),
         noOfVotes: borrowApplicationTemp.noOfVotes.toString(),
         asset: borrowApplicationTemp.asset.toString(),
@@ -40,13 +40,29 @@ export const loadUserData = createAsyncThunk("account/loadUserData", async (prop
         user: borrowApplicationTemp.user.toString(),
         approved: borrowApplicationTemp.approved.toString()
     }
-    let totalNoOfVoters = res[2].toString()
-    let totalAssets = res[3].toString()
+    let borrowApplicationListTemp = res[2]
+    let borrowApplicationList = []
+    for (let i in borrowApplicationListTemp) {
+        let borrowApplicationListTempTemp = {
+            amount: ethers.utils.formatEther(borrowApplicationListTemp[i].amount),
+            creditScore: borrowApplicationListTemp[i].creditScore.toString(),
+            noOfVotes: borrowApplicationListTemp[i].noOfVotes.toString(),
+            asset: borrowApplicationListTemp[i].asset.toString(),
+            assetName: borrowApplicationListTemp[i].assetName.toString(),
+            user: borrowApplicationListTemp[i].user.toString(),
+            approved: borrowApplicationListTemp[i].approved.toString()
+        }
+        borrowApplicationList.push(borrowApplicationListTempTemp)
+    }
+    let totalNoOfVoters = res[3].toString()
+    let totalAssets = res[4].toString()
 
-    console.log("res: ", reserves, "borrowApplication: ", borrowApplication, "totalNoOfVoters: ", totalNoOfVoters, "totalAssets: ", totalAssets)
+
+    console.log("res: ", reserves, "borrowApplication: ", borrowApplication, "borrowApplicationList: ", borrowApplicationList, "totalNoOfVoters: ", totalNoOfVoters, "totalAssets: ", totalAssets)
     return ({
         reserves,
         borrowApplication,
+        borrowApplicationList,
         totalNoOfVoters,
         totalAssets
     })
@@ -60,6 +76,7 @@ const initialState = {
     loading: false,
     reserves: null,
     borrowApplication: null,
+    borrowApplicationList: null,
     totalNoOfVoters: null,
     totalAssets: null
 }
@@ -97,6 +114,7 @@ export const accountSlice = createSlice({
                 state.borrowApplication = action.payload.borrowApplication;
                 state.totalNoOfVoters = action.payload.totalNoOfVoters;
                 state.totalAssets = action.payload.totalAssets;
+                state.borrowApplicationList = action.payload.borrowApplicationList;
 
                 state.loading = false;
             })

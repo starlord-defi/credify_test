@@ -60,7 +60,7 @@ export default function Lend() {
         <Space size='middle'>
           <a>Supply</a>
           <a>Details</a>
-          
+
         </Space>
       ),
     },
