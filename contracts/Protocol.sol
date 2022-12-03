@@ -9,6 +9,8 @@ contract Protocol {
     uint256 totalNoOfVoters = 0;
     address[] assets;
     uint256 totalAssets = 0;
+    uint256 totalNoOfBorrowApplications;
+    address[] borrowApplicants;
 
     struct reserveSet {
         address cTokenAddress;
@@ -111,7 +113,8 @@ contract Protocol {
             user.creditscore > 0,
             "Credit Score should be minted and more than zero"
         );
-
+        borrowApplicants.push(msg.sender);
+        totalNoOfBorrowApplications += 1;
         borrowSet storage borrow = borrows[msg.sender];
         borrow.amount = amount;
         borrow.user = msg.sender;
@@ -145,11 +148,16 @@ contract Protocol {
         returns (
             reserveSet[] memory,
             borrowSet memory,
+            borrowSet[] memory,
             uint256,
             uint256
         )
     {
         reserveSet[] memory reservesTemp = new reserveSet[](assets.length);
+        borrowSet[] memory borrowsTemp = new borrowSet[](
+            borrowApplicants.length
+        );
+
         for (uint256 i = 0; i < totalAssets; i++) {
             address assetAddress = assets[i];
             reserveSet memory reserveT = reservesTemp[i];
@@ -161,8 +169,27 @@ contract Protocol {
             reserveT.name = reserve.name;
         }
 
+        for (uint256 i = 0; i < totalNoOfBorrowApplications; i++) {
+            address applicant = borrowApplicants[i];
+            borrowSet memory borrowSetT = borrowsTemp[i];
+            borrowSet memory borrow = borrows[applicant];
+            borrowSetT.amount = borrow.amount;
+            borrowSetT.asset = borrow.asset;
+            borrowSetT.assetName = borrow.assetName;
+            borrowSetT.user = borrow.user;
+            borrowSetT.creditScore = borrow.creditScore;
+            borrowSetT.noOfVotes = borrow.noOfVotes;
+            borrowSetT.approved = borrow.approved;
+        }
+
         borrowSet memory borrowTemp = borrows[user];
 
-        return (reservesTemp, borrowTemp, totalNoOfVoters, totalAssets);
+        return (
+            reservesTemp,
+            borrowTemp,
+            borrowsTemp,
+            totalNoOfVoters,
+            totalAssets
+        );
     }
 }

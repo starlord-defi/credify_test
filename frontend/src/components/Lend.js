@@ -24,8 +24,8 @@ export default function Lend() {
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-                        <a>Supply</a>
-                      
+          <a>Supply</a>
+
         </Space>
       ),
     },
@@ -53,9 +53,9 @@ export default function Lend() {
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-                        <a>Supply</a>
-                        <a>Details</a>
-                      
+          <a>Supply</a>
+          <a>Details</a>
+
         </Space>
       ),
     },
