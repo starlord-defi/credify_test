@@ -1,5 +1,6 @@
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
+import SupplyModal from './Modals/SupplyModal';
 
 export default function Lend() {
   const columnsSupply = [
@@ -18,14 +19,18 @@ export default function Lend() {
       title: '',
       dataIndex: 'input',
       key: 'input',
+      render: (_, record) => (
+        <Space size='middle'>
+          <SupplyModal/>
+        </Space>
+      )
     },
     {
       title: '',
       key: 'action',
       render: (_, record) => (
         <Space size='middle'>
-                        <a>Supply</a>
-                      
+          <a>Supply</a>
         </Space>
       ),
     },

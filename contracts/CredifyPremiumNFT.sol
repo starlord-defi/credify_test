@@ -16,13 +16,14 @@ contract CredifyPremiumNFT is ERC721("CredifyPremiumNFT", "CP"), ERC721Burnable,
         return "ipfs://";
     }
 
-    function mintCredifyPremium(uint256 score,address to) public {
+    function mintCredifyPremium(uint256 score,string memory _tokenURI,address to) public {
         require(to != address(0), "cannot mint to zero address");
         require(score >= 50 , "credit score must be more than 50");
         require(super.balanceOf(to)<=1,"cannot have more than one nft badge");
         _tokenIdCounter.increment();
         uint256 tokenId = _tokenIdCounter.current();
         _safeMint(to, tokenId);
+        _setTokenURI(tokenId, _tokenURI);
     }
 
     function burnCredifyPremium(uint256 tokenId) public {

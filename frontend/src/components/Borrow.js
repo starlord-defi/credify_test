@@ -1,6 +1,7 @@
 import React from 'react';
 import { Space, Table, Tag, Button, Input } from 'antd';
 import { useSelector } from 'react-redux';
+import BorrowModal from './Modals/BorrowModal';
 
 
 export default function Borrow(props) {
@@ -18,6 +19,16 @@ export default function Borrow(props) {
       title: 'Annual Percentage Yield',
       dataIndex: 'apy',
       key: 'apy',
+    },
+    {
+      title: '',
+      dataIndex: 'amountInput',
+      key: 'amountInput',
+      render: (_, record) => (
+        <Space size='middle'>
+          <BorrowModal />
+        </Space>
+      )
     },
     {
       title: '',
