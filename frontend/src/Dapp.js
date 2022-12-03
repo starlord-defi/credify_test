@@ -283,9 +283,6 @@ export default function Dapp() {
                     <NavLink className='navlink' to='/about'>
                       About Us
                     </NavLink>
-                    <NavLink className='navlink' to='/contact'>
-                      Contact
-                    </NavLink>
                   </li>
                 </ul>
               </nav>
@@ -362,7 +359,10 @@ export default function Dapp() {
           </Routes>
 
           <Routes>
-            <Route path='/about' element={<About />} />
+            <Route
+              path='/about'
+              element={<About connect={accountButtonInfo} />}
+            />
           </Routes>
           <Footer
             style={{

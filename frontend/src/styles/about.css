@@ -1,8 +1,8 @@
 #para-button {
   cursor: pointer;
 }
-#para-button:hover {
-  background-color: white;
+p:hover {
+  color: blue;
 }
 
 #metamask,

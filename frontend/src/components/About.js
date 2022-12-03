@@ -8,7 +8,7 @@ import authereum from './../images/wallets/authereum.png';
 import coinbase from './../images/wallets/coinbase.png';
 import styles from './../styles/about.css';
 
-export default function About() {
+export default function About(props) {
   return (
     <div
       style={{
@@ -42,7 +42,8 @@ export default function About() {
             Planning for an Uncollateralized Loan in the Web3 Space? Look no
             further! Connect your wallet now and get yourself a credit score
             which can be used seamlessly to apply for a loan without a
-            collateral. Apply now using your favourite of 6 wallets!
+            collateral. Apply now using any one of your favourite 6 wallets and
+            check your credit score!
           </h2>
         </div>
         <div>
@@ -55,6 +56,7 @@ export default function About() {
           > */}
           <p
             id='para-button'
+            onClick={props.connect.action}
             style={{
               fontSize: '48px',
               fontWeight: '500',
@@ -67,7 +69,7 @@ export default function About() {
               left: '220px',
               zIndex: '2',
               userSelect: 'none',
-              boxShadow: '3px solid black',
+              boxShadow: '4px 4px',
             }}
           >
             Connect Your Wallet
