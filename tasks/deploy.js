@@ -7,6 +7,7 @@ const contractID = {
     DAI: "DAI",
     MINTABLEERC20: "MintableERC20",
     CREDITTOKEN: "creditToken",
+    CREDITNFT: "CredifyPremiumNFT"
 }
 
 task("local:deploy-contracts", "Deploys contracts and initialises")
@@ -20,13 +21,13 @@ task("local:deploy-contracts", "Deploys contracts and initialises")
 
         console.log("Account balance:", (await deployer.getBalance()).toString());
 
-        const Contract = await ethers.getContractFactory("Protocol");
-        const contract = await Contract.deploy();
+        var Contract = await ethers.getContractFactory("Protocol");
+        var contract = await Contract.deploy();
         await contract.deployed();
         console.log("contract address:", contractID.PROTOCOL, contract.address);
         saveFrontendFiles(contract, contractID.PROTOCOL);
 
-        function saveFrontendFiles(contract, id) {
+        function saveFrontendFiles(contract, id, artifactId) {
             const fs = require("fs");
             const contractsDir = __dirname + "/../frontend/src/contracts";
             console.log("ID: ", id)

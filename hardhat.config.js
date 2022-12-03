@@ -7,6 +7,7 @@ require("./tasks/deploy");
 require("./tasks/deploy-tokens");
 require("./tasks/mint-tokens");
 require("./tasks/test-protocol");
+require("./tasks/test-nft");
 
 
 // If you are using MetaMask, be sure to change the chainId to 1337
