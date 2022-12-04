@@ -35,6 +35,7 @@ import { CopyOutlined, ExportOutlined, SettingFilled } from '@ant-design/icons';
 import { Select } from 'antd';
 import BorrowersApplication from './components/BorrowersApplication';
 import Lend from './components/Lend';
+import About from './components/About';
 
 const { Option } = Select;
 const { TabPane } = Tabs;
@@ -367,6 +368,12 @@ export default function Dapp() {
             <Route path='/lend' element={<Lend provider={injectedProvider} />} />
           </Routes>
 
+          <Routes>
+            <Route
+              path='/about'
+              element={<About connect={accountButtonInfo} />}
+            />
+          </Routes>
           <Footer
             style={{
               background: '#191919',
