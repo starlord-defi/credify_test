@@ -7,8 +7,12 @@ import formatic from './../images/wallets/fortmatic.png';
 import authereum from './../images/wallets/authereum.png';
 import coinbase from './../images/wallets/coinbase.png';
 import styles from './../styles/about.css';
+import { useSelector } from 'react-redux';
 
 export default function About(props) {
+
+  const address = useSelector((state) => state.account.address)
+
   return (
     <div
       style={{
@@ -28,10 +32,11 @@ export default function About(props) {
               fontSize: '96px',
               fontWeight: '700',
               marginLeft: '50px',
-              marginTop: '20px',
+              marginTop: '25px',
+              fontFamily: "Caudex"
             }}
           >
-            About Us
+            Credify
           </h1>
           <h2
             style={{
@@ -72,7 +77,7 @@ export default function About(props) {
               boxShadow: '4px 4px',
             }}
           >
-            Connect Your Wallet
+            {address ? "Check Credit Score" : "Connect Your Wallet"}
           </p>
         </div>
         <div></div>

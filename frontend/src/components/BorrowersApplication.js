@@ -79,8 +79,8 @@ export default function BorrowersApplication(props) {
         disabled = false
       }
       else {
-        buttonText = "Processed Successfully"
-        disabled = true
+        buttonText = "Vote"
+        disabled = false
       }
 
       borrowApplicationListTemp.push(

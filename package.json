@@ -11,11 +11,14 @@
     "server": "npm run server --prefix backend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "local:deploy-contracts": "hardhat --network local local:deploy-contracts",
+    "mumbai:deploy-contracts": "hardhat --network mumbai local:deploy-contracts",
     "local:deploy-tokens": "hardhat --network local local:deploy-tokens",
+    "mumbai:deploy-tokens": "hardhat --network mumbai local:deploy-tokens",
     "compile": "SKIP_LOAD=true hardhat compile",
     "local:mint-tokens": "hardhat --network local local:mint-tokens",
+    "mumbai:mint-tokens": "hardhat --network mumbai local:mint-tokens",
     "local:test-protocol": "hardhat --network local local:test-protocol",
-    "local:test-nft":"hardhat --network local local:test-nft"
+    "local:test-nft": "hardhat --network local local:test-nft"
   },
   "license": "",
   "devDependencies": {

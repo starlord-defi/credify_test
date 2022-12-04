@@ -278,7 +278,7 @@ export default function Dapp() {
               <nav>
                 <ul>
                   <li>
-                    <NavLink className='navlink' to='/'>
+                    <NavLink className='navlink' to='/dashboard'>
                       Credit Score
                     </NavLink>
                     <NavLink className='navlink' to='/borrow'>
@@ -290,7 +290,7 @@ export default function Dapp() {
                     <NavLink className='navlink' to='/list'>
                       Applications
                     </NavLink>
-                    <NavLink className='navlink' to='/about'>
+                    <NavLink className='navlink' to='/'>
                       About Us
                     </NavLink>
                   </li>
@@ -351,7 +351,7 @@ export default function Dapp() {
 
           <Routes>
             <Route
-              path='/'
+              path='/dashboard'
               element={<Dashboard provider={injectedProvider} />}
             />
           </Routes>
@@ -370,7 +370,7 @@ export default function Dapp() {
 
           <Routes>
             <Route
-              path='/about'
+              path='/'
               element={<About connect={accountButtonInfo} />}
             />
           </Routes>

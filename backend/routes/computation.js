@@ -51,8 +51,17 @@ router.post("/creditscore", async (req, res) => {
         const bRes = borrowResults[i]
         const rRes = repayResults[i]
 
-        let rRes_amount = numberOfRepays == 0 ? 0 : await rRes.args.amount
-        let bRes_amount = numberOfBorrows == 0 ? 0 : await bRes.args.amount
+        var rRes_amount = 0
+        var bRes_amount = 0
+
+        if (numberOfRepays > i) {
+            rRes_amount = numberOfRepays == 0 ? 0 : await rRes.args.amount
+
+        }
+        if (numberOfBorrows > i) {
+            bRes_amount = numberOfBorrows == 0 ? 0 : await bRes.args.amount
+
+        }
 
         console.log("rRes: ", rRes)
 

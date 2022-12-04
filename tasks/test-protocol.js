@@ -51,14 +51,14 @@ task("local:test-protocol", "Deploys contracts and initialises")
         tx = await protocol.deposit(ethers.utils.parseEther('10000'), address.DAI)
         console.log("Deposited")
 
-        tx = await protocol.setCredit(100)
-        console.log("SetCredit")
+        // tx = await protocol.setCredit(100)
+        // console.log("SetCredit")
 
-        tx = await protocol.applyBorrow(ethers.utils.parseEther('10'), DAI.address, 30, "DAI")
-        console.log("AppliedForBorrow")
+        // tx = await protocol.applyBorrow(ethers.utils.parseEther('10'), DAI.address, 30, "DAI")
+        // console.log("AppliedForBorrow")
 
-        tx = await protocol.vote(sender.address)
-        console.log("Voted")
+        // tx = await protocol.vote(sender.address)
+        // console.log("Voted")
 
         tx = await protocol.getData(sender.address)
         console.log("Data: ", tx)
