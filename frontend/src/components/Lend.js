@@ -46,24 +46,24 @@ export default function Lend(provider) {
     },
   ];
 
-  const columnsSupplied = [
-    {
-      title: 'Asset', //props.titles.asset
-      dataIndex: 'asset',
-      key: 'asset',
-      render: text => <a>{text}</a>,
-    },
-    {
-      title: 'Annual Percentage Yield',
-      dataIndex: 'apy',
-      key: 'apy',
-    },
-    {
-      title: 'Amount Supplied',
-      dataIndex: 'amountSupplied',
-      key: 'amountSupplied',
-    },
-  ];
+  // const columnsSupplied = [
+  //   {
+  //     title: 'Asset', //props.titles.asset
+  //     dataIndex: 'asset',
+  //     key: 'asset',
+  //     render: text => <a>{text}</a>,
+  //   },
+  //   {
+  //     title: 'Annual Percentage Yield',
+  //     dataIndex: 'apy',
+  //     key: 'apy',
+  //   },
+  //   {
+  //     title: 'Amount Supplied',
+  //     dataIndex: 'amountSupplied',
+  //     key: 'amountSupplied',
+  //   },
+  // ];
 
   const reservesList = []
   const data = reserves ? reserves.map((data, key) => {
@@ -82,8 +82,8 @@ export default function Lend(provider) {
     <div style={{ height: '82.5vh' }}>
       <h1>Supply Assets</h1>
       <Table columns={columnsSupply} dataSource={reservesList} />
-      <h1>Supplied Assets</h1>
-      <Table columns={columnsSupplied} dataSource={reservesList} />
+      {/* <h1>Supplied Assets</h1>
+      <Table columns={columnsSupplied} dataSource={reservesList} /> */}
     </div>
   );
 }

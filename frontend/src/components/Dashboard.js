@@ -4,13 +4,14 @@ import { actionCreditScore } from "../store/slices/accountSlice"
 import protocolABI from "../contracts/Protocol.json"
 import deployedContracts from "../contracts/contract-address.json"
 import { ethers } from 'ethers';
-import { message } from 'antd';
+import { message, Row, Col, } from 'antd';
 
 export default function Dashboard(provider) {
 
   const dispatch = useDispatch();
   const address = useSelector(state => state.account.address);
   const creditScore = useSelector(state => state.account.creditScore);
+  const creditSet = useSelector(state => state.account.creditSet);
 
   const getCreditScore = async () => {
 
@@ -75,7 +76,7 @@ export default function Dashboard(provider) {
             color: 'white',
           }}
         >
-          Store on Blockchain
+          {creditSet ? "Successfully Minted on Blockchain" : "Store on Blockchain"}
         </button>
       </div>
     </div>

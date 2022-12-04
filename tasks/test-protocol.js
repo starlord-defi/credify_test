@@ -45,20 +45,20 @@ task("local:test-protocol", "Deploys contracts and initialises")
         console.log("tx reserves: ", tx)
 
 
-        // const APPROVAL_AMOUNT_LENDING_POOL = '1000000000000000000000000000';
+        const APPROVAL_AMOUNT_LENDING_POOL = '1000000000000000000000000000';
 
-        // await DAI.approve(protocol.address, APPROVAL_AMOUNT_LENDING_POOL)
-        // tx = await protocol.deposit(ethers.utils.parseEther('10000'), address.DAI)
-        // console.log("Deposited")
+        await DAI.approve(protocol.address, APPROVAL_AMOUNT_LENDING_POOL)
+        tx = await protocol.deposit(ethers.utils.parseEther('10000'), address.DAI)
+        console.log("Deposited")
 
-        // tx = await protocol.setCredit(100)
-        // console.log("SetCredit")
+        tx = await protocol.setCredit(100)
+        console.log("SetCredit")
 
-        // tx = await protocol.applyBorrow(ethers.utils.parseEther('10'), DAI.address, 30, "DAI")
-        // console.log("AppliedForBorrow")
+        tx = await protocol.applyBorrow(ethers.utils.parseEther('10'), DAI.address, 30, "DAI")
+        console.log("AppliedForBorrow")
 
-        // tx = await protocol.vote(sender.address)
-        // console.log("Voted")
+        tx = await protocol.vote(sender.address)
+        console.log("Voted")
 
         tx = await protocol.getData(sender.address)
         console.log("Data: ", tx)

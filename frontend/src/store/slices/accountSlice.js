@@ -26,13 +26,13 @@ export const actionCreditScore = createAsyncThunk("account/actionCreditScore", a
             }
             console.log(userDataTemp)
             response = await axios.post("/api/credit/creditscore", userDataTemp)
-            return ({ response: response.data })
+            return ({ response: response.data, creditSet: false })
         }
         else {
             var obj = {
                 score: score
             }
-            return ({ response: obj })
+            return ({ response: obj, creditSet: true })
         }
     }
     catch (err) {
@@ -95,13 +95,15 @@ export const loadUserData = createAsyncThunk("account/loadUserData", async (prop
 const initialState = {
     address: null,
     creditScore: null,
+    creditSet: null,
     error: null,
     loading: false,
     reserves: null,
     borrowApplication: null,
     borrowApplicationList: null,
     totalNoOfVoters: null,
-    totalAssets: null
+    totalAssets: null,
+
 }
 
 export const accountSlice = createSlice({
@@ -119,7 +121,9 @@ export const accountSlice = createSlice({
             })
             .addCase(actionCreditScore.fulfilled, (state, action) => {
                 state.creditScore = action.payload.response.score;
+                state.creditSet = action.payload.creditSet
                 console.log(action.payload.response.score)
+                console.log(state.creditSet)
                 state.loading = false;
             })
             .addCase(actionCreditScore.rejected, (state, { error }) => {

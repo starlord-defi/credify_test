@@ -215,4 +215,18 @@ contract Protocol {
             totalAssets
         );
     }
+
+    // function getLiquidity(address user)
+    //     external
+    //     view
+    //     returns (
+    //         reserveSet[] memory,
+    //         borrowSet memory,
+    //         borrowSet[] memory,
+    //         uint256,
+    //         uint256
+    //     )
+    // {
+
+    // }
 }
